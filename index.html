@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="description" content="Générateur d'emplois du temps pour lycées au Burkina Faso" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="EDT Lycée BF" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="EDT Lycée BF" />
+    <meta property="og:description" content="Générateur d'emplois du temps – Burkina Faso" />
+    <meta property="og:type" content="website" />
+
+    <title>EDT Lycée BF – Burkina Faso</title>
+
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: Georgia, serif; background: #f8fafc; }
+      #root { min-height: 100vh; }
+
+      /* Splash screen */
+      #splash {
+        position: fixed; inset: 0; background: #0f172a;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 16px;
+        z-index: 9999; transition: opacity 0.4s;
+      }
+      #splash.hide { opacity: 0; pointer-events: none; }
+      #splash-logo {
+        width: 72px; height: 72px; border-radius: 20px;
+        background: linear-gradient(135deg, #16a34a, #0891b2);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 28px; font-weight: 900; color: white; letter-spacing: 1px;
+      }
+      #splash h1 { color: #f1f5f9; font-size: 18px; font-weight: normal; }
+      #splash p { color: #64748b; font-size: 12px; letter-spacing: 3px; font-family: sans-serif; }
+      .spinner {
+        width: 32px; height: 32px; border: 3px solid #1e293b;
+        border-top-color: #16a34a; border-radius: 50%;
+        animation: spin 0.8s linear infinite; margin-top: 8px;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* Print styles */
+      @media print {
+        .no-print { display: none !important; }
+        body { background: white; }
+        table { page-break-inside: avoid; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Splash screen -->
+    <div id="splash">
+      <div id="splash-logo">EDT</div>
+      <h1>PlanLycée BF</h1>
+      <p>MENA · BURKINA FASO</p>
+      <div class="spinner"></div>
+    </div>
+
+    <div id="root"></div>
+
+    <!-- Service Worker registration -->
+    <script>
+      // Hide splash when app loads
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var splash = document.getElementById('splash');
+          if (splash) {
+            splash.classList.add('hide');
+            setTimeout(function() { splash.remove(); }, 400);
+          }
+        }, 800);
+      });
+
+      // Register Service Worker for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) { console.log('SW registered:', reg.scope); })
+            .catch(function(err) { console.log('SW error:', err); });
+        });
+      }
+    </script>
+  </body>
+</html>
