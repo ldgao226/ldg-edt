@@ -1,0 +1,26 @@
+{
+  "short_name": "EDT Lycée BF",
+  "name": "Emploi du Temps – Lycée Burkina Faso",
+  "description": "Générateur d'emplois du temps pour lycées au Burkina Faso (MENA)",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0f172a",
+  "background_color": "#f8fafc",
+  "orientation": "landscape",
+  "lang": "fr",
+  "categories": ["education", "productivity"]
+}
